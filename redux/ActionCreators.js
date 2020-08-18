@@ -152,3 +152,12 @@ export const addFavorite = campsiteId => ({
     type: ActionTypes.ADD_FAVORITE,
     payload: campsiteId
 });
+
+// export const postComment = thunked => ({
+//     campsiteId,
+//     rating,
+//     author,
+//     text
+// })
+
+// export const addComment ={}
