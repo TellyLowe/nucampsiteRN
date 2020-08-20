@@ -153,11 +153,21 @@ export const addFavorite = campsiteId => ({
     payload: campsiteId
 });
 
-// export const postComment = thunked => ({
-//     campsiteId,
-//     rating,
-//     author,
-//     text
-// })
+export const postComment = (campsiteId, rating, author, text) => dispatch => {
+    const newComment = {
+        campsiteId,
+        rating,
+        author,
+        text
+    }
 
-// export const addComment ={}
+    newComment.date = new Date().toISOString();
+    setTimeout(() => {
+        dispatch(addComment(newComment));
+    }, 2000);
+};
+
+export const addComment = (comment) => ({
+    type: ActionTypes.ADD_COMMENT,
+    payload: comment
+});
