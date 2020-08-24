@@ -27,26 +27,26 @@ class Login extends Component {
                 .catch(error => console.log('Could not save user info', error));
         } else {
             SecureStore.deleteItemAsync('userinfo')
-            .catch(error => console.log('Could not delete user info', error));
+                .catch(error => console.log('Could not delete user info', error));
         }
     }
 
     componentDidMount() {
         SecureStore.getItemAsync('userinfo')
-        .then(userdata => {
-            const userinfo = JSONparse(userdata);
-            if (userinfo) {
-                this.setState({username: userinfo.username});
-                this.setState({username: userinfo.password});
-                this.setState({remeber: true})
-            }
-        });
+            .then(userdata => {
+                const userinfo = JSON.parse(userdata);
+                if (userinfo) {
+                    this.setState({username: userinfo.username});
+                    this.setState({password: userinfo.password});
+                    this.setState({remember: true})
+                }
+            });
     }
 
     render() {
         return (
-            <View style={StyleSheet.container}>
-                <Input 
+            <View style={styles.container}>
+                <Input
                     placeholder='Username'
                     leftIcon={{type: 'font-awesome', name: 'user-o'}}
                     onChangeText={username => this.setState({username})}
@@ -54,28 +54,28 @@ class Login extends Component {
                     containerStyle={styles.formInput}
                     leftIconContainerStyle={styles.formIcon}
                 />
-                <Input 
+                <Input
                     placeholder='Password'
                     leftIcon={{type: 'font-awesome', name: 'key'}}
                     onChangeText={password => this.setState({password})}
-                    value={this.state.username}
+                    value={this.state.password}
                     containerStyle={styles.formInput}
                     leftIconContainerStyle={styles.formIcon}
                 />
                 <CheckBox
-                    title='Remeber Me'
+                    title='Remember Me'
                     center
-                    checked={this.state.remeber}
-                    onPress={() => this.setState({remeber: !this.state.remeber})}
+                    checked={this.state.remember}
+                    onPress={() => this.setState({remember: !this.state.remember})}
                     containerStyle={styles.formCheckbox}
+                />
+                <View style={styles.formButton}>
+                    <Button
+                        onPress={() => this.handleLogin()}
+                        title='Login'
+                        color='#5637DD'
                     />
-                    <View style={styles.formButton}>
-                        <Button
-                            onPress={() => this.handleLogin()}
-                            title='Login'
-                            color='#5637DD'
-                            />
-                    </View>
+                </View>
             </View>
         );
     }
